@@ -1,5 +1,5 @@
 {
-    "name": "open-library-client",
+    "name": "@ryandotzone/open-library-client",
     "version": "0.1.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -8,9 +8,12 @@
         "lint": "eslint . --ext .ts",
         "test": "jest"
     },
-    "author": "",
+    "author": {
+        "name": "Ryan Bartlett",
+        "url": "https://github.com/ryanzbartlett"
+    },
     "license": "ISC",
-    "description": "",
+    "description": "A TypeScript wrapper for the Open Library API using native fetch (Node 18+ and browsers).",
     "devDependencies": {
         "@eslint/js": "^9.27.0",
         "@types/jest": "^29.5.14",
@@ -24,5 +27,13 @@
         "ts-node": "^10.9.2",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.32.1"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ryanzbartlett/open-library-client.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ryanzbartlett/open-library-client/issues"
+    },
+    "homepage": "https://github.com/ryanzbartlett/open-library-client#readme"
 }
