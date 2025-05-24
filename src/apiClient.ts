@@ -1,15 +1,5 @@
 import { SearchResult, Doc } from './types';
-import { z } from 'zod/v4';
-
-function isNumeric(str: string) {
-    if (typeof str != 'string') return false;
-    return !isNaN(parseFloat(str));
-}
-
-const isbnSchema = z.string().check(
-    z.refine((v) => v.trim().length === 10 || v.trim().length === 13, { error: 'Must be 10 or 13-digit' }),
-    z.refine((v) => v.trim().split('').every(c => isNumeric(c)), { error: 'Must consist of only numbers' }),
-);
+import { validateIsbn } from './utils';
 
 const BASE_URL = 'https://openlibrary.org';
 
@@ -38,11 +28,10 @@ export async function search(params: Record<string, string>): Promise<SearchResu
  * @param isbn - The ISBN of the book, e.g. '9780671746063'
  */
 export async function findBookByIsbn(isbn: string): Promise<Doc> {
-    const result = isbnSchema.safeParse(isbn);
+    const validation = validateIsbn(isbn);
 
-    if (result.error) {
-        const msg = result.error.issues.map(i => i.message).join(', ');
-        throw new Error(`Failed to parse ISBN: ${msg}`);
+    if (!validation.valid) {
+        throw new Error(`Failed to parse ISBN: ${validation.errors.join(', ')}`);
     }
 
     const searchResult = await search({ isbn });
